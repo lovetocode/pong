@@ -16,6 +16,7 @@ func _physics_process(delta):
 	
 	if collision:
 		velocity = velocity.bounce(collision.get_normal()) * ball_speed_multiplier
+		
 	
 func start_ball():
 	randomize()

@@ -5,7 +5,7 @@ extends Node2D
 @onready var ball = $Ball as Ball
 
 
-var player_points
+var player_points = 0 
 var enemy_points = 0
 
 func _on_enemy_scored():
