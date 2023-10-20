@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://div104kmbhpu1"]
+[gd_scene load_steps=8 format=3 uid="uid://div104kmbhpu1"]
 
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_kppg8"]
 [ext_resource type="PackedScene" uid="uid://d2oe6hmb30hvu" path="res://scenes/Wall.tscn" id="1_twe10"]
 [ext_resource type="PackedScene" uid="uid://cawxb6to6coth" path="res://scenes/Paddle.tscn" id="2_n7qs6"]
 [ext_resource type="Script" path="res://scenes/Enemy_Paddle.gd" id="3_hoetn"]
+[ext_resource type="PackedScene" uid="uid://bqw3k1nvpgu0s" path="res://scenes/ball.tscn" id="4_nhc2u"]
+[ext_resource type="PackedScene" uid="uid://bjowd4myrpmeh" path="res://scenes/edge.tscn" id="5_buyci"]
+[ext_resource type="Texture2D" uid="uid://1q6kyynj3i76" path="res://assets/PingPongDottedLine.png" id="7_luhpb"]
 
 [node name="main" type="Node2D"]
+script = ExtResource("1_kppg8")
 
 [node name="Walls" type="Node" parent="."]
 
@@ -24,6 +29,27 @@ zoom = Vector2(0.4, 0.4)
 [node name="Paddle" parent="." instance=ExtResource("2_n7qs6")]
 position = Vector2(-1000, 0)
 
-[node name="Enemy_paddle" parent="." instance=ExtResource("2_n7qs6")]
+[node name="Enemy_paddle" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("2_n7qs6")]
 position = Vector2(1000, 0)
 script = ExtResource("3_hoetn")
+ball = NodePath("../Ball")
+paddle_speed = 35000
+
+[node name="Ball" parent="." instance=ExtResource("4_nhc2u")]
+
+[node name="LeftEdge" parent="." instance=ExtResource("5_buyci")]
+position = Vector2(-1165, 0)
+
+[node name="RightEdge" parent="." instance=ExtResource("5_buyci")]
+position = Vector2(1222, 0)
+
+[node name="CenterLine" type="Line2D" parent="."]
+texture_repeat = 2
+position = Vector2(0, -600)
+points = PackedVector2Array(0, 0, 0, 1200)
+width = 32.0
+texture = ExtResource("7_luhpb")
+texture_mode = 1
+
+[connection signal="point_scored" from="LeftEdge" to="." method="_on_enemy_scored"]
+[connection signal="point_scored" from="RightEdge" to="." method="_on_player_scored"]
