@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://div104kmbhpu1"]
+[gd_scene load_steps=10 format=3 uid="uid://div104kmbhpu1"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_kppg8"]
 [ext_resource type="PackedScene" uid="uid://d2oe6hmb30hvu" path="res://scenes/Wall.tscn" id="1_twe10"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bqw3k1nvpgu0s" path="res://scenes/ball.tscn" id="4_nhc2u"]
 [ext_resource type="PackedScene" uid="uid://bjowd4myrpmeh" path="res://scenes/edge.tscn" id="5_buyci"]
 [ext_resource type="Texture2D" uid="uid://1q6kyynj3i76" path="res://assets/PingPongDottedLine.png" id="7_luhpb"]
+[ext_resource type="PackedScene" uid="uid://blom83b7s644c" path="res://scenes/ui.tscn" id="8_7e0wa"]
+[ext_resource type="AudioStream" uid="uid://bvfjjyn4wcgos" path="res://assets/explosion.wav" id="9_w4uy7"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kppg8")
@@ -50,6 +52,13 @@ points = PackedVector2Array(0, 0, 0, 1200)
 width = 32.0
 texture = ExtResource("7_luhpb")
 texture_mode = 1
+
+[node name="UI" parent="." instance=ExtResource("8_7e0wa")]
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("9_w4uy7")
 
 [connection signal="point_scored" from="LeftEdge" to="." method="_on_enemy_scored"]
 [connection signal="point_scored" from="RightEdge" to="." method="_on_player_scored"]
